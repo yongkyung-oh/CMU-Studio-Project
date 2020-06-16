@@ -229,7 +229,7 @@ WEB_HTML = """
     </body>
     <footer> 
     <br>
-    <p class="text-center"> &copy; 2020. <a href='https://parl.ai/'> <u> ParlAI </u> </a>. Copyright all rights reserved. </p>
+    <p class="text-center"> &copy; 2020. <a href='https://parl.ai/'> <u> ParlAI </u> </a> and <a href='https://yongkyung-oh.github.io/CMU-Studio-Project/'> <u> IITP CMU Studio Project Team 3 </u> </a>. Copyright all rights reserved. </p>
     </footer>
 </html>
 """  # noqa: E501
