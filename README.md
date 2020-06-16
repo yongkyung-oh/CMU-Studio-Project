@@ -62,7 +62,7 @@ Running the websocket in the local. It is the same as running the `~/chat_servic
 
 
 ```bash
-python parlai/chat_service/services/browser_chat/client.py --host=0.0.0.0
+python parlai/chat_service/services/browser_chat_test/client.py --host=0.0.0.0
 ```
 Running the web-browser chatbot, which communicate with websocket. Default port number is 8080.
 
