@@ -26,8 +26,7 @@ The purpose of this project is to learn and implement hands-on data analysis, AI
 
 ### Chatbot Demo
 [link](https://youtu.be/e33-9wViLc4)
-<iframe width="640" height="480" src="https://youtu.be/e33-9wViLc4" frameborder="0" allowfullscreen></iframe>
-
+<iframe width="560" height="315" src="https://www.youtube.com/embed/e33-9wViLc4" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ### System Architecture
 <p align="center"><img width="90%" src="figs\architecture 1.png" /></p>
