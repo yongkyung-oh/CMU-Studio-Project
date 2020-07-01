@@ -5,10 +5,10 @@ Check the information in the [page](https://yongkyung-oh.github.io/CMU-Studio-Pr
 
 --------------------------------------------------------------------------------
 Conversation Demo 1
-<p align="center"><img width="90%" src="figs\chatbot free-talking (finetuned).png" /></p>
+<p align="center"><img width="80%" src="figs\chatbot free-talking (finetuned).png" /></p>
 
 Conversation Demo 2
-<p align="center"><img width="90%" src="figs\chatbot q&a (finetuned).png" /></p>
+<p align="center"><img width="80%" src="figs\chatbot q&a (finetuned).png" /></p>
 
 
 --------------------------------------------------------------------------------
@@ -36,6 +36,13 @@ This repository is the implementation example of BST (Blended Skill Talk) model 
 - Customize the outlook and JavaScript functions.
 - Add timestamp and custom information from `client.py`.
 
+#### using fine-tuned model rather than pretrained model 
+
+We added 2 more tasks to the BST model. Fine-tuned model path should be added in the `config.yml` file. In the public source code, BST 90M pretrained model will be loaded. 
+
+<p align="center"><img width="70%" src="figs\dataset.png" /></p>
+
+<p align="center"><img width="70%" src="figs\evaluation.png" /></p>
 
 --------------------------------------------------------------------------------
 
