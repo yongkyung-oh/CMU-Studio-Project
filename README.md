@@ -1,5 +1,15 @@
 # CMU-Studio-Project
+This project is conducted by IITP CMU studio project team 3. The purpose of project is developing a conversational AI chatbot. Our team implemented Parl AI from Facebook AI research team. 
+
 Check the information in the [page](https://yongkyung-oh.github.io/CMU-Studio-Project/).
+
+--------------------------------------------------------------------------------
+Conversation Demo 1
+<p align="center"><img width="90%" src="figs\chatbot free-talking (finetuned).png" /></p>
+
+Conversation Demo 2
+<p align="center"><img width="90%" src="figs\chatbot q&a (finetuned).png" /></p>
+
 
 --------------------------------------------------------------------------------
 
