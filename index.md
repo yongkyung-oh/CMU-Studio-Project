@@ -26,7 +26,7 @@ The purpose of this project is to learn and implement hands-on data analysis, AI
 
 ### Chatbot Demo
 <video width="640" height="480" controls>
-  <source src="video.mov" type="figs\chat demo.mp4">
+  <source src="video.mov" type="https://youtu.be/e33-9wViLc4">
 </video>
 
 
