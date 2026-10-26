@@ -1,6 +1,6 @@
-## Welcome to GitHub for CMU_Studio_Project
+## CMU Studio Project
 
-This is the github repository for **CMU-Studio-Project** as part of [IITP Executive Education Course: Spring 2020](https://www.lti.cs.cmu.edu/iitp-executive-education-course-spring-2020). 
+This is the github repository for **CMU-Studio-Project** as part of IITP Executive Education Course: Spring 2020. 
 
 This project is conducted by Young Hyun Cho, Soomin Ham, Byung Joo Kim, Woo Seong Yang and Yongkyung Oh. Our team is mainly advised by [Daniel Plakosh](mailto:dplakosh@cert.org). 
 
@@ -21,7 +21,7 @@ The purpose of this project is to learn and implement hands-on data analysis, AI
 
 
 ### Project Timeline
-<p align="center"><img width="90%" src="figs\timeline.png" /></p>
+<p align="center"><img width="90%" src="figs/timeline.png" /></p>
 
 
 ### Chatbot Demo
@@ -30,12 +30,12 @@ The purpose of this project is to learn and implement hands-on data analysis, AI
 <p align="center"><iframe width="560" height="315" src="https://www.youtube.com/embed/e33-9wViLc4" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
 
 ### System Architecture
-<p align="center"><img width="90%" src="figs\architecture 1.png" /></p>
+<p align="center"><img width="90%" src="figs/architecture%201.png" /></p>
 
-<p align="center"><img width="90%" src="figs\architecture 2.png" /></p>
+<p align="center"><img width="90%" src="figs/architecture%202.png" /></p>
 
 
 ### Modification
-<p align="center"><img width="90%" src="figs\dataset.png" /></p>
+<p align="center"><img width="90%" src="figs/dataset.png" /></p>
 
-<p align="center"><img width="90%" src="figs\evaluation.png" /></p>
+<p align="center"><img width="90%" src="figs/evaluation.png" /></p>
