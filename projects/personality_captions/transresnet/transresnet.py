@@ -153,7 +153,7 @@ class TransresnetAgent(Agent):
             print('loading saved cand encodings')
             if os.path.isfile(cands_enc_file):
                 self.fixed_cands_enc = torch.load(
-                    cands_enc_file, map_location=lambda cpu, _: cpu
+                    cands_enc_file, map_location=lambda cpu, _: cpu, weights_only=True
                 )
             else:
                 print('Extracting cand encodings')
@@ -510,6 +510,6 @@ class TransresnetAgent(Agent):
         :param path:
             path from which to load model
         """
-        states = torch.load(path, map_location=lambda cpu, _: cpu)
+        states = torch.load(path, map_location=lambda cpu, _: cpu, weights_only=True)
         if 'model' in states:
             self.model.load_state_dict(states['model'])

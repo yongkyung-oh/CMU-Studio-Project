@@ -140,7 +140,7 @@ class WizardTransformerRankerAgent(TransformerRankerAgent):
         Override this method from TorchAgent to allow us to load partial weights from
         pre-trained models.
         """
-        states = torch.load(path, map_location=lambda cpu, _: cpu)
+        states = torch.load(path, map_location=lambda cpu, _: cpu, weights_only=True)
 
         if 'model' in states:
             new_state_dict = states['model']

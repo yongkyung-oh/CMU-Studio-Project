@@ -13,8 +13,8 @@ from setuptools import setup, find_packages
 BUILD = ''  # test by setting to ".dev0" if multiple in one day, use ".dev1", ...
 DATE = datetime.date.today().isoformat().replace('-', '')
 
-if sys.version_info < (3, 6):
-    sys.exit('Sorry, Python >=3.6 is required for ParlAI.')
+if sys.version_info[:2] != (3, 11):
+    sys.exit('This local runtime requires Python 3.11.')
 
 with open('README.md', encoding="utf8") as f:
     # strip the header and badges etc
@@ -32,12 +32,14 @@ if __name__ == '__main__':
         long_description=readme,
         long_description_content_type='text/markdown',
         url='http://parl.ai/',
-        python_requires='>=3.6',
+        python_requires='>=3.11,<3.12',
         scripts=['bin/parlai'],
         packages=find_packages(
-            exclude=('data', 'docs', 'examples', 'tests', 'parlai_internal',)
+            exclude=('data', 'docs', 'examples', 'tests', 'parlai_internal',
+                     'parlai.mturk', 'parlai.mturk.*')
         ),
-        install_requires=reqs.strip().split('\n'),
+        install_requires=[line.strip() for line in reqs.splitlines()
+                          if line.strip() and not line.lstrip().startswith('#')],
         include_package_data=True,
         package_data={'': ['*.txt', '*.md']},
         entry_points={"flake8.extension": ["PAI = parlai.utils.flake8:ParlAIChecker"]},

@@ -5,6 +5,7 @@
 # LICENSE file in the root directory of this source tree.
 
 import json
+from parlai.chat_service.utils.local import loopback_host, LocalRequestHandler
 import websocket
 import threading
 from parlai.core.params import ParlaiParser
@@ -23,7 +24,7 @@ new_message = None
 message_available = threading.Event()
 
 
-class BrowserHandler(BaseHTTPRequestHandler):
+class BrowserHandler(LocalRequestHandler, BaseHTTPRequestHandler):
     """
     Handle HTTP requests.
     """
@@ -119,7 +120,7 @@ def on_error(ws, error):
     print(error)
 
 
-def on_close(ws):
+def on_close(ws, close_status_code=None, close_msg=None):
     """
     Cleanup before closing connection.
 
@@ -130,7 +131,7 @@ def on_close(ws):
 
 
 def _run_browser():
-    host = opt.get('host', 'localhost')
+    host = loopback_host(opt.get('host', 'localhost'))
     serving_port = opt.get('serving_port', 8080)
 
     httpd = HTTPServer((host, serving_port), BrowserHandler)
@@ -158,15 +159,16 @@ def setup_args():
     :return: A parser that parses the port from commandline arguments.
     """
     parser = ParlaiParser(False, False)
+    parser.add_argument('-h', '--help', action='help')
     parser_grp = parser.add_argument_group('Browser Chat')
     parser_grp.add_argument(
         '--port', default=35496, type=int, help='Port used by the web socket (run.py)'
     )
     parser_grp.add_argument(
         '--host',
-        default='localhost',
-        type=str,
-        help='Host from which allow requests, use 0.0.0.0 to allow all IPs',
+        default='127.0.0.1',
+        type=loopback_host,
+        help='Loopback address for the local browser demo',
     )
     parser_grp.add_argument(
         '--serving_port',
@@ -180,6 +182,7 @@ def setup_args():
 
 if __name__ == "__main__":
     opt = setup_args()
+    loopback_host(opt['host'])
     port = opt.get('port', 34596)
     print("Connecting to port: ", port)
     ws = websocket.WebSocketApp(

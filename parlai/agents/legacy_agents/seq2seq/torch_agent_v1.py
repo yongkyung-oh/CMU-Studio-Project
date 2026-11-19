@@ -1000,7 +1000,7 @@ class TorchAgent(Agent):
 
         Override this method for more specific loading.
         """
-        states = torch.load(path, map_location=lambda cpu, _: cpu)
+        states = torch.load(path, map_location=lambda cpu, _: cpu, weights_only=True)
         if 'model' in states:
             self.model.load_state_dict(states['model'])
         if 'optimizer' in states and hasattr(self, 'optimizer'):

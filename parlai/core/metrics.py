@@ -473,7 +473,7 @@ class RougeMetric(AverageMetric):
         except LookupError:
             warn_once(
                 'ROUGE requires nltk punkt tokenizer. Please run '
-                '`python -c "import nltk; nltk.download(\'punkt\')`'
+                '`python -c "import nltk; nltk.download(\'punkt_tab\')`'
             )
             return None, None, None
 

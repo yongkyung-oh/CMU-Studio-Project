@@ -29,22 +29,8 @@ See the [news page](https://github.com/facebookresearch/ParlAI/blob/master/NEWS.
 
 ## Installing ParlAI
 
-ParlAI currently requires Python3.6 and [Pytorch](https://pytorch.org) 1.4. *It does not work with pytorch 1.5*.
-Dependencies of the core modules are listed in [`requirements.txt`](https://github.com/facebookresearch/ParlAI/blob/master/requirements.txt). Some
-models included (in [`parlai/agents`](https://github.com/facebookresearch/ParlAI/tree/master/parlai/agents)) have additional requirements.
-
-Run the following commands to clone the repository and install ParlAI:
-
-```bash
-git clone https://github.com/facebookresearch/ParlAI.git ~/ParlAI
-cd ~/ParlAI; python setup.py develop
-```
-
-This will link the cloned directory to your site-packages.
-
-This is the recommended installation procedure, as it provides ready access to the examples and allows you to modify anything you might need. This is especially useful if you want to submit another task to the repository.
-
-All needed data will be downloaded to `~/ParlAI/data`, and any non-data files if requested will be downloaded to `~/ParlAI/downloads`. If you need to clear out the space used by these files, you can safely delete these directories and any files needed will be downloaded again.
+Use Python 3.11 and the local CPU setup in the root [README](README.md).
+See [local use](docs/local-runtime.md) for supported input formats and transports.
 
 ## Documentation
 

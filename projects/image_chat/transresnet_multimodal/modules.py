@@ -470,7 +470,7 @@ class TransresnetMultimodalModel(TransresnetModel):
     def _load_text_encoder_state(self):
         try:
             state_file = self.opt.get("load_encoder_from")
-            model = torch.load(state_file)
+            model = torch.load(state_file, weights_only=True)
             states = model["model"]
             self.text_encoder.load_state_dict(states)
         except Exception as e:
@@ -484,7 +484,7 @@ class TransresnetMultimodalModel(TransresnetModel):
     def _load_context_encoder_state(self):
         try:
             state_file = self.opt.get("load_context_encoder_from")
-            model = torch.load(state_file)
+            model = torch.load(state_file, weights_only=True)
             states = model["model"]
             self.context_encoder.load_state_dict(states)
         except Exception as e:

@@ -959,7 +959,7 @@ class TorchRankerAgent(TorchAgent):
         Load fixed candidates from a path.
         """
         print("[ Loading fixed candidate set {} from {} ]".format(cand_type, path))
-        return torch.load(path, map_location=lambda cpu, _: cpu)
+        return torch.load(path, map_location=lambda cpu, _: cpu, weights_only=True)
 
     def _make_candidate_vecs(self, cands):
         """

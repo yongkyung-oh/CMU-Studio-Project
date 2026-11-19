@@ -1,0 +1,5 @@
+-r requirements.txt
+pip==26.3
+setuptools==84.2.1
+wheel==0.48.0
+pytest==9.2.0

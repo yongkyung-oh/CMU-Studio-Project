@@ -585,7 +585,7 @@ class StarspaceAgent(Agent):
             data = {}
             data['model'] = self.model.state_dict()
             data['optimizer'] = self.optimizer.state_dict()
-            data['opt'] = self.opt
+            data['opt'] = dict(self.opt)
             with open(path, 'wb') as handle:
                 torch.save(data, handle)
             with open(path + '.opt', 'w') as handle:
@@ -596,11 +596,9 @@ class StarspaceAgent(Agent):
         Return opt and model states.
         """
         print('Loading existing model params from ' + path)
-        import parlai.utils.pickle
+        from parlai.utils.checkpoint import load_state_checkpoint
 
-        data = torch.load(
-            path, map_location=lambda cpu, _: cpu, pickle_module=parlai.utils.pickle
-        )
+        data = load_state_checkpoint(path)
         self.model.load_state_dict(data['model'])
         self.reset()
         self.optimizer.load_state_dict(data['optimizer'])

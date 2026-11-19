@@ -156,7 +156,7 @@ class Graph(object):
             and (attr.startswith("_"))
         ]
         with open(fname, 'rb') as read:
-            model = torch.load(read)
+            model = torch.load(read, weights_only=True)
         for m in members:
             if m in model:
                 setattr(self, m, model[m])

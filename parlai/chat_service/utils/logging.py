@@ -7,12 +7,12 @@
 Logging utils for Chat Services.
 """
 import logging
-import time
 
 #################
 # LOGGING UTILS #
 #################
-logger = None
+logger = logging.getLogger(__name__)
+logger.addHandler(logging.NullHandler())
 logging_enabled = True
 debug = True
 log_level = logging.ERROR
@@ -21,17 +21,6 @@ log_level = logging.ERROR
 def set_is_debug(is_debug):
     global debug
     debug = is_debug
-
-
-if logging_enabled:
-    logging.basicConfig(
-        filename=str(time.time()) + '.log',
-        filemode='w',
-        format='%(asctime)s,%(msecs)d %(name)s %(levelname)s %(message)s',
-        datefmt='%H:%M:%S',
-        level=logging.DEBUG,
-    )
-    logger = logging.getLogger('mturk')
 
 
 def set_log_level(new_level):

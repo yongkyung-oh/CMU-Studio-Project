@@ -19,6 +19,7 @@ def setup_args():
     Set up args.
     """
     parser = ParlaiParser(False, False)
+    parser.add_argument('-h', '--help', action='help')
     parser.add_parlai_data_path()
     parser.add_websockets_args()
     return parser.parse_args()

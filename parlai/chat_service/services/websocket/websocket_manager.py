@@ -16,7 +16,7 @@ from parlai.chat_service.core.chat_service_manager import ChatServiceManager
 import parlai.chat_service.utils.logging as log_utils
 import parlai.chat_service.utils.misc as utils
 from parlai.chat_service.services.websocket.sockets import MessageSocketHandler
-from agents import WebsocketAgent
+from parlai.chat_service.services.websocket.agents import WebsocketAgent
 import tornado
 from tornado.options import options
 
@@ -160,7 +160,7 @@ class WebsocketManager(ChatServiceManager):
         """
         self.running = True
         self.app = self._make_app()
-        self.app.listen(self.port)
+        self.app.listen(self.port, address='127.0.0.1')
         # Must use a tornado callback to run the main loop
         callback_time = utils.THREAD_MEDIUM_SLEEP * 1000
         tornado.ioloop.PeriodicCallback(
@@ -209,7 +209,8 @@ class WebsocketManager(ChatServiceManager):
                     {'subs': self.subs, 'message_callback': message_callback},
                 )
             ],
-            debug=self.debug,
+            debug=False,
+            websocket_max_message_size=65536,
         )
 
     def observe_message(self, socket_id, message, quick_replies=None):

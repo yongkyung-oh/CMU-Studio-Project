@@ -158,7 +158,7 @@ class DrqaAgent(Agent):
 
     def _init_from_saved(self, fname):
         print('[ Loading model %s ]' % fname)
-        saved_params = torch.load(fname, map_location=lambda storage, loc: storage)
+        saved_params = torch.load(fname, map_location=lambda storage, loc: storage, weights_only=True)
         if 'word_dict' in saved_params:
             # for compatibility with old saves
             self.word_dict.copy_dict(saved_params['word_dict'])

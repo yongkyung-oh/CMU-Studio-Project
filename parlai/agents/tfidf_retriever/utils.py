@@ -55,7 +55,7 @@ def load_sparse_csr(filename):
 
 
 def load_sparse_tensor(filename):
-    loader = torch.load(filename)
+    loader = torch.load(filename, weights_only=True)
     matrix = torch.sparse.FloatTensor(
         loader['indices'], loader['values'], loader['size']
     )

@@ -4,7 +4,9 @@
   "description": "",
   "main": "webpack.config.js",
   "scripts": {
-    "dev": "webpack --mode development -q"
+    "dev": "node -e \"throw new Error('Legacy MTurk is unavailable in the local runtime; see docs/local-runtime.md')\"",
+    "preinstall": "node -e \"throw new Error('Legacy MTurk is unavailable in the local runtime; see docs/local-runtime.md')\"",
+    "start": "node -e \"throw new Error('Legacy MTurk is unavailable in the local runtime; see docs/local-runtime.md')\""
   },
   "keywords": [],
   "author": "",
@@ -30,5 +32,8 @@
     "style-loader": "^0.23.0",
     "webpack": "^4.19.1",
     "webpack-cli": "^3.1.1"
+  },
+  "engines": {
+    "node": "<0.0.0"
   }
 }

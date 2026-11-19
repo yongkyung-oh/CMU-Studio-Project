@@ -1202,7 +1202,7 @@ class ControllableSeq2seqAgent(TorchAgent):
         """
         Return opt and model states.
         """
-        states = torch.load(path, map_location=lambda cpu, _: cpu)
+        states = torch.load(path, map_location=lambda cpu, _: cpu, weights_only=True)
 
         # check opt file for multigpu
         with open(path + ".opt", 'r') as handle:

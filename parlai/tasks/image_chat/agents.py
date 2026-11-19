@@ -304,7 +304,7 @@ class ImageChatTestTeacher(ImageChatTeacher):
         )
         import torch
 
-        self.image_features = torch.load(image_features_path)
+        self.image_features = torch.load(image_features_path, weights_only=True)
 
     def reset(self):
         """

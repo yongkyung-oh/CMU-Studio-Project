@@ -292,12 +292,9 @@ class DictionaryAgent(Agent):
             except ImportError:
                 raise ImportError('Please install nltk (pip install nltk)')
             # nltk-specific setup
-            st_path = 'tokenizers/punkt/{0}.pickle'.format(opt['dict_language'])
-            try:
-                self.sent_tok = nltk.data.load(st_path)
-            except LookupError:
-                nltk.download('punkt')
-                self.sent_tok = nltk.data.load(st_path)
+            from parlai.utils.tokenization import sentence_tokenizer
+
+            self.sent_tok = sentence_tokenizer(opt['dict_language'])
             self.word_tok = nltk.tokenize.treebank.TreebankWordTokenizer()
         elif self.tokenizer in ['bpe', 'gpt2', 'bytelevelbpe', 'slow_bytelevel_bpe']:
             self.bpe = bpe_factory(opt, shared)

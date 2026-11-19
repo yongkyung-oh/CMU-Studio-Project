@@ -10,7 +10,6 @@ Opt is the system for passing around options throughout ParlAI.
 
 import copy
 import json
-import pickle
 import traceback
 
 from typing import List
@@ -119,14 +118,10 @@ class Opt(dict):
         """
         Load an Opt from disk.
         """
-        try:
-            # try json first
-            with open(optfile, 'r') as t_handle:
-                dct = json.load(t_handle)
-        except UnicodeDecodeError:
-            # oops it's pickled
-            with open(optfile, 'rb') as b_handle:
-                dct = pickle.load(b_handle)
+        with open(optfile, 'r', encoding='utf-8') as handle:
+            dct = json.load(handle)
+        if not isinstance(dct, dict):
+            raise ValueError('Options must be a JSON object; pickle options are unsupported.')
         for key in __AUTOCLEAN_KEYS__:
             if key in dct:
                 del dct[key]

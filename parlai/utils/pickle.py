@@ -12,10 +12,8 @@ since they look for modules in all the wrong places. Furthermore, we occassional
 use APEX for performance reasons, but we don't want to outright die if the user
 has not installed it.
 
-This module is to handle both of these issues. It is used like this:
-
->>> import parlai.utils.pickle
->>> state_dict = torch.load(filename, pickle_module=parlai.utils.pickle)
+The local runtime uses parlai.utils.checkpoint.load_state_checkpoint. Do not
+supply this unrestricted unpickler to torch.load or use it for external files.
 """
 
 import pickle

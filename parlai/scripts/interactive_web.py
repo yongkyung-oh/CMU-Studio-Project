@@ -9,6 +9,7 @@ Talk with a model using a web UI.
 
 
 from http.server import BaseHTTPRequestHandler, HTTPServer
+from parlai.chat_service.utils.local import loopback_host, LocalRequestHandler
 from parlai.scripts.interactive import setup_args
 from parlai.core.agents import create_agent
 from parlai.core.worlds import create_task
@@ -16,7 +17,7 @@ from typing import Dict, Any
 
 import json
 
-HOST_NAME = 'localhost'
+HOST_NAME = '127.0.0.1'
 PORT = 8080
 
 SHARED: Dict[Any, Any] = {}
@@ -95,18 +96,25 @@ WEB_HTML = """
                     // Make magic word underline 
                     if (paraText.data.includes("GOOGLE")) {{
                         var paraText = document.createElement("a");
-                        paraText.innerHTML += "<u> "+text+" </u>" ;
+                        paraText.textContent = text;
                     }};
                 }} else if (agent == "Model") {{
                     // Make search link text to href 
                     if (paraText.data.includes("https://www.google.com")) {{
                         var paraText = document.createElement("a");
-                        paraText.innerHTML += "<a href='"+text+"'> <u> Here is the <b> search link. </b> </u> </a>";
+                        try {{
+                            var searchUrl = new URL(text);
+                            if (searchUrl.protocol === "https:" && searchUrl.hostname === "www.google.com") {{
+                                paraText.href = searchUrl.href;
+                                paraText.textContent = "search link";
+                                paraText.rel = "noopener noreferrer";
+                            }} else {{ paraText.textContent = text; }};
+                        }} catch (error) {{ paraText.textContent = text; }};
                     }};
                 }};
 
                 var strong = document.createElement("strong");
-                strong.innerHTML = agent;
+                strong.textContent = agent;
                 var br = document.createElement("br");
 
                 para.appendChild(strong);
@@ -182,7 +190,7 @@ WEB_HTML = """
 """  # noqa: E501
 
 
-class MyHandler(BaseHTTPRequestHandler):
+class MyHandler(LocalRequestHandler, BaseHTTPRequestHandler):
     """
     Handle HTTP requests.
     """
@@ -260,8 +268,8 @@ def setup_interactive(shared):
     parser.add_argument(
         '--host',
         default=HOST_NAME,
-        type=str,
-        help='Host from which allow requests, use 0.0.0.0 to allow all IPs',
+        type=loopback_host,
+        help='Loopback address for the local browser demo',
     )
 
     SHARED['opt'] = parser.parse_args(print_args=False)
@@ -282,7 +290,7 @@ def setup_interactive(shared):
 if __name__ == '__main__':
     opt = setup_interactive(SHARED)
     MyHandler.protocol_version = 'HTTP/1.0'
-    httpd = HTTPServer((opt['host'], opt['port']), MyHandler)
+    httpd = HTTPServer((loopback_host(opt['host']), opt['port']), MyHandler)
     print('http://{}:{}/'.format(opt['host'], opt['port']))
 
     try:

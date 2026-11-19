@@ -4,6 +4,8 @@
  */
 'use strict';
 
+throw new Error('MTurk services are unavailable in this local runtime.');
+
 const bodyParser = require('body-parser');
 const express = require('express');
 const fs = require('fs');

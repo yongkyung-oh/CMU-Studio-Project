@@ -608,7 +608,7 @@ class MemnnFeedbackAgent(Agent):
 
     def load(self, path):
         with open(path, 'rb') as read:
-            checkpoint = torch.load(read)
+            checkpoint = torch.load(read, weights_only=True)
         self.model.load_state_dict(checkpoint['memnn'])
         self.optimizers['memnn'].load_state_dict(checkpoint['memnn_optim'])
         if self.decoder is not None:

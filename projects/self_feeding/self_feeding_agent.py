@@ -838,7 +838,7 @@ class SelfFeedingAgent(TransformerRankerAgent):
 
         Overriding TorchAgent.load() to enable partial loading
         """
-        states = torch.load(path, map_location=lambda cpu, _: cpu)
+        states = torch.load(path, map_location=lambda cpu, _: cpu, weights_only=True)
         if 'model' in states:
             try:
                 self.model.load_state_dict(states['model'])

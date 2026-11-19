@@ -5,6 +5,7 @@
 # LICENSE file in the root directory of this source tree.
 
 from typing import Dict, TypeVar
+from parlai.chat_service.utils.local import local_authority, local_origin
 from tornado.websocket import WebSocketHandler
 import uuid
 import logging
@@ -29,6 +30,11 @@ class MessageSocketHandler(WebSocketHandler):
         self.sid = get_rand_id()
         super().__init__(*args, **kwargs)
 
+    def prepare(self):
+        if not local_authority(self.request.host, self.request.connection.stream.socket.getsockname()[1]):
+            from tornado.web import HTTPError
+            raise HTTPError(403)
+
     def open(self):
         """
         Opens a websocket and assigns a random UUID that is stored in the class-level
@@ -43,7 +49,7 @@ class MessageSocketHandler(WebSocketHandler):
         """
         Runs when a socket is closed.
         """
-        del self.subs[self.sid]
+        self.subs.pop(self.sid, None)
 
     def on_message(self, message_text):
         """
@@ -57,7 +63,13 @@ class MessageSocketHandler(WebSocketHandler):
                 attachment dict structure.
         """
         logging.info('websocket message from client: {}'.format(message_text))
-        message = json.loads(message_text)
+        try:
+            message = json.loads(message_text)
+            if not isinstance(message, dict) or not isinstance(message.get('text', ''), str):
+                raise ValueError
+        except (ValueError, TypeError):
+            self.close(1007, 'Expected a JSON object with text')
+            return
         message = {
             'text': message.get('text', ''),
             'payload': message.get('payload'),
@@ -67,4 +79,4 @@ class MessageSocketHandler(WebSocketHandler):
         self.message_callback(message)
 
     def check_origin(self, origin):
-        return True
+        return local_origin(origin, self.request.connection.stream.socket.getsockname()[1])

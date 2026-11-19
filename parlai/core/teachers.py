@@ -1686,7 +1686,7 @@ class AbstractImageTeacher(FixedDialogTeacher):
                 f'Loading existing image features dict for model: {self.image_mode} at: {image_mode_features_dict_path}'
             )
             self.image_features_dict = torch.load(
-                image_mode_features_dict_path, map_location='cpu'
+                image_mode_features_dict_path, map_location='cpu', weights_only=True
             )
         else:
             print(f'No existing image features, attempting to build.')

@@ -933,7 +933,7 @@ class KvmemnnAgent(Agent):
         """
         with open(path, 'rb') as read:
             print('Loading existing model params from ' + path)
-            data = torch.load(read)
+            data = torch.load(read, weights_only=True)
             self.model.load_state_dict(data['model'])
             self.reset()
             self.optimizer.load_state_dict(data['optimizer'])

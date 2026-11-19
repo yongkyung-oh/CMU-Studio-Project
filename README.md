@@ -47,44 +47,21 @@ We added 2 more tasks to the BST model. Fine-tuned model path should be added in
 --------------------------------------------------------------------------------
 
 
-## Installing ParlAI using this repo
+## Local CPU use
 
-ParlAI currently requires Python3.6 and [Pytorch](https://pytorch.org) 1.4. *It does not work with pytorch 1.5*.
-Dependencies of the core modules are listed in [`requirements.txt`](https://github.com/facebookresearch/ParlAI/blob/master/requirements.txt). Some
-models included (in [`parlai/agents`](https://github.com/facebookresearch/ParlAI/tree/master/parlai/agents)) have additional requirements.
-
-Run the following commands to clone the repository and install ParlAI:
+Use Python 3.11 in a new environment:
 
 ```bash
-git clone https://github.com/yongkyung-oh/CMU-Studio-Project.git
-cd ~/CMU-Studio-Project; python setup.py develop
+python3.11 -m venv .venv
+. .venv/bin/activate
+python -m pip install --upgrade pip==26.3
+python -m pip install -e .
+python -m parlai.scripts.interactive -m repeat_label
 ```
 
-This will link the cloned directory to your site-packages.
-
-This is the recommended installation procedure, as it provides ready access to the examples and allows you to modify anything you might need. This is especially useful if you want to submit another task to the repository.
-
-All needed data will be downloaded to `~/ParlAI/data`, and any non-data files if requested will be downloaded to `~/ParlAI/downloads`. If you need to clear out the space used by these files, you can safely delete these directories and any files needed will be downloaded again.
-
-This repo is tested with following ParlAI version. `parlai==0.1.20200609`
-
-
-## Running websocket server and browser example
-Original code is referred from [ParlAI document](https://parl.ai/docs/tutorial_chat_service.html). You may need to install 'tornado' to operate websocket by typing `pip install tornado`.
-
-```bash
-python parlai/chat_service/services/websocket/run.py --config-path parlai/chat_service/tasks/chat_test/config.yml
-```
-Running the websocket in the local. It is the same as running the `~/chat_service/services/browser_chat/run.py`. Default port number is 35496.
-
-
-```bash
-python parlai/chat_service/services/browser_chat_test/client.py --host=0.0.0.0
-```
-Running the web-browser chatbot, which communicate with websocket. Default port number is 8080.
-
-
---------------------------------------------------------------------------------
+See [usage](docs/local-runtime.md) for checkpoint formats and local transports.
+Blender 90M, GPU training, MTurk and Messenger deployment are outside this setup.
 
 ## License
-ParlAI is MIT licensed. See the LICENSE file for details.
+
+ParlAI is MIT licensed. See [LICENSE](LICENSE) for details.

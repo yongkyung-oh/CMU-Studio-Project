@@ -33,6 +33,7 @@ heroku_url = 'https://cli-assets.heroku.com/heroku-cli/channels/stable/heroku-cl
 
 
 def setup_heroku_server(task_name):
+    raise RuntimeError('Messenger/Heroku deployment is unavailable in the local runtime.')
     print("Heroku: Collecting files...")
     # Install Heroku CLI
     os_name = None
@@ -232,6 +233,7 @@ def delete_heroku_server(task_name):
 
 
 def setup_local_server(task_name):
+    raise RuntimeError('Messenger/Heroku deployment is unavailable in the local runtime.')
     global server_process
     print("Local Server: Collecting files...")
 
@@ -279,6 +281,7 @@ def delete_local_server(task_name):
 
 
 def setup_server(task_name, local=False):
+    raise RuntimeError('Messenger/Heroku deployment is unavailable in the local runtime.')
     if local:
         return setup_local_server(task_name)
     return setup_heroku_server(task_name)

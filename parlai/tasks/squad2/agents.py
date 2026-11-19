@@ -207,12 +207,9 @@ class SentenceIndexTeacher(IndexTeacher):
         except ImportError:
             raise ImportError('Please install nltk (e.g. pip install nltk).')
         # nltk-specific setup
-        st_path = 'tokenizers/punkt/{0}.pickle'.format('english')
-        try:
-            self.sent_tok = nltk.data.load(st_path)
-        except LookupError:
-            nltk.download('punkt')
-            self.sent_tok = nltk.data.load(st_path)
+        from parlai.utils.tokenization import sentence_tokenizer
+
+        self.sent_tok = sentence_tokenizer('english')
 
     def get(self, episode_idx, entry_idx=None):
         article_idx, paragraph_idx, qa_idx = self.examples[episode_idx]
@@ -342,12 +339,9 @@ class SentenceLabelsTeacher(IndexTeacher):
         except ImportError:
             raise ImportError('Please install nltk (e.g. pip install nltk).')
         # nltk-specific setup
-        st_path = 'tokenizers/punkt/{0}.pickle'.format('english')
-        try:
-            self.sent_tok = nltk.data.load(st_path)
-        except LookupError:
-            nltk.download('punkt')
-            self.sent_tok = nltk.data.load(st_path)
+        from parlai.utils.tokenization import sentence_tokenizer
+
+        self.sent_tok = sentence_tokenizer('english')
 
     def get(self, episode_idx, entry_idx=None):
         article_idx, paragraph_idx, qa_idx = self.examples[episode_idx]

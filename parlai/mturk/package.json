@@ -1,7 +1,9 @@
 {
   "name": "mturk",
   "scripts": {
-    "lint": "eslint . --ext jsx,js"
+    "lint": "node -e \"throw new Error('Legacy MTurk is unavailable in the local runtime; see docs/local-runtime.md')\"",
+    "preinstall": "node -e \"throw new Error('Legacy MTurk is unavailable in the local runtime; see docs/local-runtime.md')\"",
+    "start": "node -e \"throw new Error('Legacy MTurk is unavailable in the local runtime; see docs/local-runtime.md')\""
   },
   "devDependencies": {
     "babel-eslint": "^10.0.1",
@@ -24,5 +26,8 @@
       "prettier --write",
       "git add"
     ]
+  },
+  "engines": {
+    "node": "<0.0.0"
   }
 }

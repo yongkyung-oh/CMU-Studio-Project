@@ -20,13 +20,22 @@ const HOME = process.env.HOME || '';
 
 // Initialize app
 const app = express();
-app.use(bodyParser.text());
+app.use(function(req, res, next) {
+  const port = server.address().port;
+  if (!['127.0.0.1:' + port, 'localhost:' + port].includes(req.headers.host) || req.headers.origin) {
+    res.sendStatus(403); return;
+  }
+  next();
+});
+app.use(bodyParser.text({ limit: '64kb' }));
 app.use(
   bodyParser.urlencoded({
-    extended: true,
+    extended: false,
+    limit: '64kb',
+    parameterLimit: 100,
   })
 );
-app.use(bodyParser.json());
+app.use(bodyParser.json({ limit: '64kb' }));
 
 nunjucks.configure(task_directory_name, {
   autoescape: true,
@@ -48,7 +57,14 @@ if (LOCAL_HTTPS) {
 } else {
   server = http.createServer(app);
 }
-const wss = new WebSocket.Server({ server });
+const wss = new WebSocket.Server({
+  server, maxPayload: 65536, perMessageDeflate: false,
+  verifyClient: function(info, done) {
+    const port = server.address().port;
+    const allowed = ['127.0.0.1:' + port, 'localhost:' + port];
+    done(allowed.includes(info.req.headers.host) && !info.origin, 403);
+  },
+});
 
 // Socket used for speaking to the world
 var world_socket = null;
@@ -93,7 +109,11 @@ wss.on('connection', function(socket) {
   });
 
   socket.on('message', function(data) {
-    data = JSON.parse(data);
+    try { data = JSON.parse(data.toString()); }
+    catch (error) { socket.close(1007, 'Invalid JSON'); return; }
+    if (!data || typeof data !== 'object' || Array.isArray(data)) {
+      socket.close(1007, 'Expected an object'); return;
+    }
     if (data['type'] == 'world_alive') {
       world_socket = socket;
     } else if (data['type'] == 'ping') {
@@ -114,56 +134,11 @@ wss.on('connection', function(socket) {
   );
 });
 
-server.listen(PORT, function() {
+server.listen(PORT, '127.0.0.1', function() {
   console.log('Listening on %d', server.address().port);
 });
 
-// ----- Messenger routing functions -----
-// Verify webhook
-app.get('/webhook', async function(req, res) {
-  // webhook verification token
-  let VERIFY_TOKEN = 'Messenger4ParlAI';
-
-  // Parse the query params
-  let mode = req.query['hub.mode'];
-  let token = req.query['hub.verify_token'];
-  let challenge = req.query['hub.challenge'];
-
-  // Checks if a token and mode is in the query string of the request
-  if (mode && token) {
-    // Checks the mode and token sent is correct
-    if (mode === 'subscribe' && token === VERIFY_TOKEN) {
-      // Responds with the challenge token from the request
-      console.log('WEBHOOK_VERIFIED');
-      res.status(200).send(challenge);
-    } else {
-      // Responds with '403 Forbidden' if verify tokens do not match
-      res.sendStatus(403);
-    }
-  }
-});
-
-// Send messages through webhook
-app.post('/webhook', async function(req, res, next) {
-  let body = req.body;
-  console.log(body);
-  // Checks this is an event from a page subscription
-  if (body.object === 'page') {
-    try {
-      let result = _send_message('new_packet', req.body);
-      // TODO handle v. rare cases of message drops - should send timeout status
-      if (result) {
-        res.status(200).send('Successful POST');
-      } else {
-        res.status(504).send('Timeout');
-      }
-    } catch (error) {
-      console.log('Transient error on message');
-      console.log(error);
-      console.log(req.body);
-      res.status(504).send('Timeout');
-    }
-  } else {
-    res.sendStatus(404);
-  }
+// Messenger requires a separately maintained, authenticated integration.
+app.all('/webhook', function(req, res) {
+  res.status(410).send('Messenger integration is unavailable in this local runtime.');
 });

@@ -4,13 +4,14 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node -r esm server.js"
+    "test": "node -e \"throw new Error('Legacy MTurk is unavailable in the local runtime; see docs/local-runtime.md')\"",
+    "start": "node -e \"throw new Error('Legacy MTurk is unavailable in the local runtime; see docs/local-runtime.md')\"",
+    "preinstall": "node -e \"throw new Error('Legacy MTurk is unavailable in the local runtime; see docs/local-runtime.md')\""
   },
   "keywords": [],
   "author": "",
   "engines": {
-    "node": ">= 7.6.0"
+    "node": "<0.0.0"
   },
   "dependencies": {
     "async-lock": "1.0.0",

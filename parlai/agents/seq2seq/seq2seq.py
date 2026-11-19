@@ -235,7 +235,7 @@ class Seq2seqAgent(TorchGeneratorAgent):
         """
         Return opt and model states.
         """
-        states = torch.load(path, map_location=lambda cpu, _: cpu)
+        states = torch.load(path, map_location=lambda cpu, _: cpu, weights_only=True)
         # set loaded states if applicable
         self.model.load_state_dict(states['model'])
         if 'longest_label' in states:

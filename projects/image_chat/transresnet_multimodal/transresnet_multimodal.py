@@ -109,7 +109,7 @@ class TransresnetMultimodalAgent(TransresnetAgent):
             print("loading saved cand encodings")
             if os.path.isfile(cands_enc_file):
                 self.fixed_cands_enc = torch.load(
-                    cands_enc_file, map_location=lambda cpu, _: cpu
+                    cands_enc_file, map_location=lambda cpu, _: cpu, weights_only=True
                 )
             else:
                 print("Extracting cand encodings")

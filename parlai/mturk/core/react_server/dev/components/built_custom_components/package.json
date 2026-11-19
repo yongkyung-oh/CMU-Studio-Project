@@ -2,11 +2,15 @@
   "name": "custom_built_frontend",
   "version": "1.0.0",
   "description": "",
-  "main": "webpack.config.js",
-  "scripts": {
-    "dev": ""
-  },
   "main": "./dist/custom.jsx",
+  "scripts": {
+    "dev": "node -e \"throw new Error('Legacy MTurk is unavailable in the local runtime; see docs/local-runtime.md')\"",
+    "preinstall": "node -e \"throw new Error('Legacy MTurk is unavailable in the local runtime; see docs/local-runtime.md')\"",
+    "start": "node -e \"throw new Error('Legacy MTurk is unavailable in the local runtime; see docs/local-runtime.md')\""
+  },
   "keywords": [],
-  "author": ""
+  "author": "",
+  "engines": {
+    "node": "<0.0.0"
+  }
 }

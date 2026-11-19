@@ -947,7 +947,7 @@ class Seq2seqAgent(Agent):
         """
         Return opt and model states.
         """
-        states = torch.load(path, map_location=lambda cpu, _: cpu)
+        states = torch.load(path, map_location=lambda cpu, _: cpu, weights_only=True)
         return states
 
     def receive_metrics(self, metrics_dict):

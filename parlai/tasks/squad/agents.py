@@ -21,12 +21,9 @@ def get_sentence_tokenizer():
     except ImportError:
         raise ImportError('Please install nltk (e.g. pip install nltk).')
     # nltk-specific setup
-    st_path = 'tokenizers/punkt/{0}.pickle'.format('english')
-    try:
-        sent_tok = nltk.data.load(st_path)
-    except LookupError:
-        nltk.download('punkt')
-        sent_tok = nltk.data.load(st_path)
+    from parlai.utils.tokenization import sentence_tokenizer
+
+    sent_tok = sentence_tokenizer('english')
     return sent_tok
 
 

@@ -36,7 +36,9 @@ def parse_configuration_file(config_path):
     result = {}
     result["configs"] = {}
     with open(config_path) as f:
-        cfg = yaml.load(f.read(), Loader=yaml.FullLoader)
+        cfg = yaml.safe_load(f)
+        if not isinstance(cfg, dict):
+            raise ValueError("Configuration must be a YAML mapping")
         # get world path
         result["world_path"] = cfg.get("world_module")
         if not result["world_path"]:

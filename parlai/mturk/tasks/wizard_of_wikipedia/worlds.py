@@ -230,12 +230,9 @@ class MTurkWizardOfWikipediaWorld(MultiAgentDialogWorld):
         except ImportError:
             raise ImportError('Please install nltk (e.g. pip install nltk).')
         # nltk-specific setup
-        st_path = 'tokenizers/punkt/{0}.pickle'.format(opt['dict_language'])
-        try:
-            self.sent_tok = nltk.data.load(st_path)
-        except LookupError:
-            nltk.download('punkt')
-            self.sent_tok = nltk.data.load(st_path)
+        from parlai.utils.tokenization import sentence_tokenizer
+
+        self.sent_tok = sentence_tokenizer(opt['dict_language'])
 
     def sufficient_overlap(self, text, sent_dict):
         text_list = [w[:4] for w in split_tokenize(text.lower()) if w not in STOPWORDS]

@@ -732,7 +732,7 @@ class LanguageModelAgent(Agent):
         """
         Return opt, states.
         """
-        states = torch.load(path, map_location=lambda cpu, _: cpu)
+        states = torch.load(path, map_location=lambda cpu, _: cpu, weights_only=True)
         return states['opt']
 
     def load(self, path):
@@ -742,5 +742,5 @@ class LanguageModelAgent(Agent):
         if os.path.isfile(path):
             # load model parameters if available
             print('[ Loading existing model params from {} ]'.format(path))
-            self.states = torch.load(path, map_location=lambda cpu, _: cpu)
+            self.states = torch.load(path, map_location=lambda cpu, _: cpu, weights_only=True)
             self.model.load_state_dict(self.states['model'])

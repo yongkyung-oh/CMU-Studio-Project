@@ -110,12 +110,9 @@ class KnowledgeRetrieverAgent(Agent):
         except ImportError:
             raise ImportError('Please install nltk (e.g. pip install nltk).')
         # nltk-specific setup
-        st_path = 'tokenizers/punkt/{0}.pickle'.format('english')
-        try:
-            self.sent_tok = nltk.data.load(st_path)
-        except LookupError:
-            nltk.download('punkt')
-            self.sent_tok = nltk.data.load(st_path)
+        from parlai.utils.tokenization import sentence_tokenizer
+
+        self.sent_tok = sentence_tokenizer('english')
 
     def maintain_retriever_history(self, obs, actor_id='apprentice'):
         """

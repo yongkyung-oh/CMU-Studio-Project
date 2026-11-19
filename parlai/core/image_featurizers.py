@@ -235,4 +235,4 @@ class ImageLoader:
             if not os.path.isfile(new_path):
                 return self.extract(Image.open(path).convert('RGB'), new_path)
             else:
-                return self.torch.load(new_path)
+                return self.torch.load(new_path, weights_only=True)

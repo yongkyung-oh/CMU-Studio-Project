@@ -1822,11 +1822,9 @@ class TorchAgent(ABC, Agent):
 
         Override this method for more specific loading.
         """
-        import parlai.utils.pickle
+        from parlai.utils.checkpoint import load_state_checkpoint
 
-        states = torch.load(
-            path, map_location=lambda cpu, _: cpu, pickle_module=parlai.utils.pickle
-        )
+        states = load_state_checkpoint(path)
         if 'model' in states:
             self.load_state_dict(states['model'])
         if 'optimizer' in states and hasattr(self, 'optimizer'):
